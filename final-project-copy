@@ -1,0 +1,18 @@
+# Scale the features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Train/test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+
+# Initialize and train the Logistic Regression model 
+glm_model = LogisticRegression(max_iter=9000, random_state=42, solver='saga')
+glm_model.fit(X_train, y_train)
+
+# Make predictions
+glm_y_pred = glm_model.predict(X_test)
+
+# Evaluate the model
+print("\nLogistic Regression (GLM) - Classification Report:")
+print(classification_report(y_test, glm_y_pred))
+print(f"Logistic Regression (GLM) - Accuracy Score: {accuracy_score(y_test, glm_y_pred)}")
